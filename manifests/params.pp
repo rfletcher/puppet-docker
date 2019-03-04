@@ -124,7 +124,7 @@ class docker::params {
       $docker_command = $docker_command_default
       $docker_group = $docker_group_default
       $package_repos = 'main'
-      $use_upstream_package_source = true
+      $use_upstream_package_source = false
       $pin_upstream_package_source = true
       $apt_source_pin_level = 10
       $repo_opt = undef
@@ -174,7 +174,7 @@ class docker::params {
         $manage_epel = false
       } else {
         $package_name = $package_name_default
-        $use_upstream_package_source = true
+        $use_upstream_package_source = false
         $manage_epel = false
       }
       $package_key_source = 'https://yum.dockerproject.org/gpg'
@@ -303,7 +303,7 @@ class docker::params {
       $package_cs_key_source = undef
       $package_repos = undef
       $package_release = undef
-      $use_upstream_package_source = true
+      $use_upstream_package_source = false
       $service_overrides_template = undef
       $service_hasstatus  = undef
       $service_hasrestart = undef
