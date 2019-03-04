@@ -147,24 +147,24 @@ class docker::service (
 
   case $service_provider {
     'systemd': {
-      file { '/etc/systemd/system/docker.service.d':
-        ensure => directory,
-      }
-
-      if $service_overrides_template {
-        file { '/etc/systemd/system/docker.service.d/service-overrides.conf':
-          ensure  => present,
-          content => template($service_overrides_template),
-          notify  => Exec['docker-systemd-reload-before-service'],
-          before  => $_manage_service,
-        }
-        exec { 'docker-systemd-reload-before-service':
-          path        => ['/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/'],
-          command     => 'systemctl daemon-reload > /dev/null',
-          before      => $_manage_service,
-          refreshonly => true,
-        }
-      }
+      # file { '/etc/systemd/system/docker.service.d':
+      #   ensure => directory,
+      # }
+      #
+      # if $service_overrides_template {
+      #   file { '/etc/systemd/system/docker.service.d/service-overrides.conf':
+      #     ensure  => present,
+      #     content => template($service_overrides_template),
+      #     notify  => Exec['docker-systemd-reload-before-service'],
+      #     before  => $_manage_service,
+      #   }
+      #   exec { 'docker-systemd-reload-before-service':
+      #     path        => ['/bin/', '/sbin/', '/usr/bin/', '/usr/sbin/'],
+      #     command     => 'systemctl daemon-reload > /dev/null',
+      #     before      => $_manage_service,
+      #     refreshonly => true,
+      #   }
+      # }
     }
     'upstart': {
       file { '/etc/init.d/docker':
@@ -177,23 +177,23 @@ class docker::service (
     default: {}
   }
 
-  if $storage_config {
-    file { $storage_config:
-      ensure  => present,
-      force   => true,
-      content => template($storage_config_template),
-      notify  => $_manage_service,
-    }
-  }
-
-  if $_service_config {
-    file { $_service_config:
-      ensure  => present,
-      force   => true,
-      content => template($service_config_template),
-      notify  => $_manage_service,
-    }
-  }
+  # if $storage_config {
+  #   file { $storage_config:
+  #     ensure  => present,
+  #     force   => true,
+  #     content => template($storage_config_template),
+  #     notify  => $_manage_service,
+  #   }
+  # }
+  #
+  # if $_service_config {
+  #   file { $_service_config:
+  #     ensure  => present,
+  #     force   => true,
+  #     content => template($service_config_template),
+  #     notify  => $_manage_service,
+  #   }
+  # }
 
   if $manage_service {
     service { 'docker':
