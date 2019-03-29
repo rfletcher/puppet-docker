@@ -13,9 +13,9 @@
 
 [Unit]
 Description=Daemon for <%= @title %>
-After=<%= @after.uniq.join(" ") %>
-Wants=<%= @wants.uniq.join(" ") %>
-Requires=<%= @requires.uniq.join(" ") %>
+After=<%= @after.sort.uniq.join(" ") %>
+Wants=<%= @wants.sort.uniq.join(" ") %>
+Requires=<%= @requires.sort.uniq.join(" ") %>
 
 [Service]
 Restart=<%= @systemd_restart %>
